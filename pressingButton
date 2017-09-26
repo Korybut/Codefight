@@ -1,0 +1,34 @@
+/*Given a string of digits, return all of the possible non-empty letter combinations that the number could represent.
+*The mapping of digits to letters is the same as you would find on a telephone's buttons.
+*The resulting array should be sorted lexicographically.
+*Example:
+*For buttons = "42", the output should be
+*pressingButtons(buttons) = ["ga", "gb", "gc", "ha", "hb", "hc", "ia", "ib", "ic"].
+*/
+
+String[] pressingButtons(String buttons) {
+    String[] v = {"0","0","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    int n = 1;
+    for(char c : buttons.toCharArray()){
+        if(c=='7' || c=='9') n*=4;
+        else n*=3;
+    }
+    if(buttons.length()==0) return new String[0];
+    String[] res = new String[n];
+    Arrays.fill(res,"");
+    int ilo = n;
+    for(int i=0; i<buttons.length(); i++){
+        int x = 0;
+        ilo/=v[getNum(buttons,i)].length();
+        for(int y=0; y<n; y++){
+            if(y%ilo==0 & y!=0) x++;
+            if(x>=v[getNum(buttons,i)].length()) x = 0;
+            res[y] += v[getNum(buttons,i)].charAt(x);
+        }
+    }
+    return res;
+}
+
+int getNum(String b, int i){
+    return Character.getNumericValue(b.charAt(i));
+}
