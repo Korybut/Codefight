@@ -1,0 +1,17 @@
+/**
+*Wallis' formula is usually used for integrating functions like:
+*sinnx
+*cosnx
+*within the bound of π/2 to 0.
+*
+*Your task is to find the value of the integrated function. It doesn't depend whether the function is sin or cos. It depends on the power of the function only.
+*
+*If it is an even number, answer is multiplied by π/2; otherwise it is not.
+**/
+
+double wallisFormula(double n) {
+    double r = 1;
+    while(n>1) r*=--n/(n--+1);
+    if(n==0) r*=Math.PI/2;
+    return r;
+}
